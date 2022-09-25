@@ -38,6 +38,7 @@ func test3() {
 		fmt.Printf("k:%v v: %v\n", key, v)
 
 	}
+	fmt.Printf("modified!")
 }
 func main() {
 	// test1()

@@ -1,4 +1,4 @@
-package main
+/* package main
 
 import "fmt"
 
@@ -45,3 +45,4 @@ func main() {
 	// test2()
 	test3()
 }
+*/

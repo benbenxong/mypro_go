@@ -1,0 +1,13 @@
+git log --pretty=oneline 一行显示
+git log --oneline 一行显示
+git reflog
+
+git reset --hard <key> //回退到<key>,且往前往后均可
+
+git reset --hard HEAD|<key> //回退到刚刚的修改（暂存区）
+
+git diff [filename...] //比较工作区与暂存区文件区别
+
+git diff HEAD|<key> [filename... exp:test_method.go] //比较本地库(或某一版本)与暂存区文件区别
+注：通过commit将暂存区同步到本地库。
+    通过reset 将将本地库同步到暂存区。

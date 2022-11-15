@@ -1,9 +1,10 @@
 package main
-/*
+
 import (
 	"database/sql"
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
+	"log"
 )
 
 var db *sql.DB
@@ -24,7 +25,7 @@ func initDB() (err error) {
 	return nil
 }
 
-func insert () {
+func Insert () {
 	s := "insert into user_t (username,passwd) values(?,?)"
 	r, err := db.Exec(s, "zhangsan", "zs123")
 	if err != nil {
@@ -38,6 +39,42 @@ func insert () {
 		}
 	}
 }
+
+func Select()  {
+	sql := "select * from user_t  where id = ? "
+	rows,err := db.Query(sql,1)
+	defer rows.Close()
+	if err!=nil{
+		log.Fatal(err)
+	}
+
+	columns, _ := rows.Columns()
+	length := len(columns)
+	for rows.Next() {
+		value := make([][]byte, length)
+		columnPointers := make([]interface{}, length)
+		for i:=0;i<length;i++ {
+			columnPointers[i] = &value[i]
+		}
+		rows.Scan(columnPointers...)
+
+		data := make(map[string]string)
+
+		for k, v := range value {
+			key := columns[k]
+			data[key] = string(v)
+		}
+		/*for i:=0;i<length;i++ {
+			columnName := columns[i]
+			columnValue := columnPointers[i].(*interface{})
+			data[columnName] = string(*columnValue)
+		}*/
+		log.Print(data)
+	}
+
+	//return result
+}
+
 func main() {
 	/*db, err := sql.Open("mysql", "root:admin@/test")
 	if err != nil {
@@ -56,5 +93,7 @@ func main() {
 		fmt.Printf("连接成功！")
 	}
 
-	insert()
-}*/
+	//Insert()
+	Select()
+	//fmt.Print(myrows)
+}
